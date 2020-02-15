@@ -48,8 +48,8 @@ a {
     flex-direction: column;
     flex-basis: 100%;
     margin-bottom: 30px;
-    max-width: 28%;
-    padding: 30px;
+    max-width: 15%;
+    padding: 10px;
 }
 
 
@@ -94,6 +94,26 @@ nav input, .link {
     /* font-size: 17px; */
 }
 
+/* Contact 
+------------*/
+
+#contact-form input {
+    padding: 6px;
+    border: none;
+    width: 180px;
+    margin-top: 20px;
+}
+
+.error {
+    color: #DB202C;
+    font-style: italic;
+    display: none;
+}
+
+.row{
+    flex-direction: column;
+}
+
 
 /* Details 
 ----------*/
@@ -108,3 +128,13 @@ nav input, .link {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+/* LEFT TO DO 
+---------------- */
+/* 
+- Make submit button pretty  
+-
+-
+-
+-
+*/

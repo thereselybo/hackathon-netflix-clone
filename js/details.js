@@ -58,3 +58,5 @@ function createShow (json) {
 //genres
 //schedule
     //accordion menu with the info
+
+//change page title 
