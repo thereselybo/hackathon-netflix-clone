@@ -99,71 +99,115 @@ function createShow (json) {
     // accordion.className = "accordion";
     // accordion.innerHTML = `<h3>Schedule</h3>`;
     // container.appendChild(accordion);
-    const tabContainer = document.createElement("div");
-    tabContainer.className = "columns is-mobile ";
-    container.appendChild(tabContainer);
+    // const tabContainer = document.createElement("div");
+    // tabContainer.className = "columns is-mobile ";
+    // container.appendChild(tabContainer);
 
     // const accordionContainer = document.createElement("div");
     // tabContainer.appendChild(accordionContainer);
 
-    tabContainer.appendChild(rowContainer);
-    const schedule = document.createElement("button");
-    schedule.className = "accordion";
-    schedule.innerHTML = `<h3>Schedule</h3>`;
-    rowContainer.appendChild(schedule);
+    // tabContainer.appendChild(rowContainer);
+    // const schedule = document.createElement("button");
+    // schedule.className = "accordion";
+    // schedule.innerHTML = `<h3>Schedule</h3>`;
+    // rowContainer.appendChild(schedule);
 
-    const scheduleDiv = document.createElement("div");
-    scheduleDiv.className = "panel";
-    scheduleDiv.style.display = "none";
-    scheduleDiv.innerHTML =   `<p>Days: ${json.schedule.days} <br>
-                                Time: ${json.schedule.time}
-                            </p>`;
-    rowContainer.appendChild(scheduleDiv);
+    const tabs = document.createElement("div");
+    tabs.className = "tabs is-centered";
+    tabs.innerHTML = `<ul>
+                        <li class="tab schedule is-active">
+                            <a>Schedule</a>
+                            <div class="tabContent scheduleDiv" style = "display: none;">
+                                <p>Days: ${json.schedule.days} <br>
+                                    Time: ${json.schedule.time}
+                                </p>
+                            </div>
+                        </li>
+                        <li class="tab episodes">
+                            <a>Episodes</a>
+                            <div class="tabContent episodesDiv" style="display: none;">
+                            </div>
+                        </li>
+                        <li class="tab seasons">
+                            <a>Seasons</a>
+                            <div class="tabContent seasonsDiv" style="display: none;">
+                            </div>
+                        </li>
+                    </ul>`;
+    container.appendChild(tabs);
 
-    schedule.addEventListener("click", function openPanel() {
-        if(scheduleDiv.style.display === "none") {
+    const schedule = document.querySelector(".schedule");
+    const scheduleDiv = document.querySelector(".scheduleDiv");
+
+    const episodes = document.querySelector(".episodes");
+    const episodesDiv = document.querySelector(".episodesDiv");
+
+    const seasons = document.querySelector(".seasons");
+    const seasonsDiv = document.querySelector(".seasonsDiv");
+
+    // const scheduleDiv = document.createElement("div");
+    // scheduleDiv.className = "panel";
+    // scheduleDiv.style.display = "none";
+    // scheduleDiv.innerHTML =   `<p>Days: ${json.schedule.days} <br>
+    //                             Time: ${json.schedule.time}
+    //                         </p>`;
+    // rowContainer.appendChild(scheduleDiv);
+
+    schedule.addEventListener("click", function openPanel() { //or function openPanel(){...}
+        if(schedule.className === "is-active") {
             scheduleDiv.style.display = "block";
         } else {
+            schedule.classList.remove = "is-active";
             scheduleDiv.style.display = "none";
         }
+        
     });
 
-    const episodes = document.createElement("button");
-    episodes.className = "column accordion";
-    episodes.innerHTML = `<h3>Episodes</h3>`;
-    tabContainer.appendChild(episodes);
+    // const episodes = document.createElement("button");
+    // episodes.className = "column accordion";
+    // episodes.innerHTML = `<h3>Episodes</h3>`;
+    // tabContainer.appendChild(episodes);
 
-    const episodesDiv = document.createElement("div");
-    episodesDiv.className = "panel episodesDiv";
-    episodesDiv.style.display = "none";
-    tabContainer.appendChild(episodesDiv);
+    // const episodesDiv = document.createElement("div");
+    // episodesDiv.className = "panel episodesDiv";
+    // episodesDiv.style.display = "none";
+    // tabContainer.appendChild(episodesDiv);
 
     episodes.addEventListener("click", function openSecondPanel() {
-        if(episodesDiv.style.display === "none") {
+        if(episodes.className === "is-active") {
             episodesDiv.style.display = "block";
         } else {
+            episodes.classList.remove = "is-active";
             episodesDiv.style.display = "none";
         }
     });
 
-    const seasons = document.createElement("button");
-    seasons.className = "column accordion";
-    seasons.innerHTML = `<h3>Seasons</h3>`;
-    tabContainer.appendChild(seasons);
+    // const seasons = document.createElement("button");
+    // seasons.className = "column accordion";
+    // seasons.innerHTML = `<h3>Seasons</h3>`;
+    // tabContainer.appendChild(seasons);
 
-    const seasonsDiv = document.createElement("div");
-    seasonsDiv.className = "panel seasonsDiv";
-    seasonsDiv.style.display = "none";
-    tabContainer.appendChild(seasonsDiv);
+    // const seasonsDiv = document.createElement("div");
+    // seasonsDiv.className = "panel seasonsDiv";
+    // seasonsDiv.style.display = "none";
+    // tabContainer.appendChild(seasonsDiv);
 
     seasons.addEventListener("click", function openThirdPanel() {
-        if(seasonsDiv.style.display === "none") {
+        if(seasons.className === "is-active") {
             seasonsDiv.style.display = "block";
         } else {
+            seasons.classList.remove = "is-active";
             seasonsDiv.style.display = "none";
         }
     });
 
+    function openTab(event, tab) {
+        const tabs = document.querySelectorAll(".tab");
+        const tabContent = document.querySelectorAll(".tabContent");
+        tabs.forEach(function(tab) {
+            
+        })
+    }
     
 }
 
