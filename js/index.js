@@ -1,4 +1,4 @@
-showUrl = "http://api.tvmaze.com/schedule"
+showUrl = "https://cors-anywhere.herokuapp.com/http://api.tvmaze.com/schedule"
 fetch(showUrl)
     .then(function(response){
         return response.json();
@@ -25,7 +25,7 @@ function createShow(json){
             image = "https://acadianakarate.com/wp-content/uploads/2017/04/default-image.jpg";
         }
 
-        const showDetails = `<div class="show col">
+        const showDetails = `<div class="show column">
                                 <a href="details.html?id=${show.show.id}">
                                     <div class="image" style="background-image: url(${image});"></div>
                                 </a>

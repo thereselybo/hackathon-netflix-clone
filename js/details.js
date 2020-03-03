@@ -9,8 +9,11 @@ if(params.has("id")) {
     document.location.href = "/";
 }
 
-const baseUrl = "http://api.tvmaze.com/shows/";
+const baseUrl = "https://cors-anywhere.herokuapp.com/http://api.tvmaze.com/shows/";
 const showUrl = `${baseUrl}${id}`;
+const episodesUrl = `${showUrl}/episodes`;
+const seasonsUrl = `${showUrl}/seasons`;
+const castUrl = `${showUrl}/cast`;
 
 fetch (showUrl)
     .then(function (response) {
@@ -23,12 +26,45 @@ fetch (showUrl)
         console.log(error);
     });
 
+fetch (episodesUrl)
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(json) {
+        handleEpisodes(json);
+    })
+    .catch(function(error) {
+        console.log(error);
+    });
+
+fetch (seasonsUrl)
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(json) {
+        handleSeasons(json);
+    })
+    .catch(function(error) {
+        console.log(error);
+    });
+
+fetch (castUrl)
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(json) {
+        handleCast(json);
+    })
+    .catch(function(error) {
+        console.log(error);
+    });
+
 function createShow (json) {
     console.dir(json);
-    const container = document.querySelector(".details-container");
+    const container = document.querySelector(".results");
 
     const heading = document.createElement("h1");
-    heading.className = "col_down"
+    // heading.className = "col_down is-vcentered"
     heading.innerText = json.name;
     container.appendChild(heading);
 
@@ -43,41 +79,139 @@ function createShow (json) {
     container.appendChild(summary);
 
     const rowContainer = document.createElement("div");
-    rowContainer.className = "col_container";
+    rowContainer.className = "columns is-mobile";
     container.appendChild(rowContainer);
 
     const language = document.createElement("div");
-    language.className = "col detail";
+    language.className = "column detail";
     language.innerHTML = `<h3>Language: </h3><p>${json.language}</p>`;
     rowContainer.appendChild(language);
 
     const genres = document.createElement("div");
-    genres.className = "col detail";
+    genres.className = "column detail";
     if(json.genres.length) {
         genres.innerHTML = `<h3>Genres: </h3><p>${json.genres}</p>`;
         rowContainer.appendChild(genres);
     }
 
-    const accordion = document.createElement("button");
-    accordion.className = "accordion";
-    accordion.innerHTML = `<h3>Schedule</h3>`;
-    container.appendChild(accordion);
+    //old accordion:
+    // const accordion = document.createElement("button");
+    // accordion.className = "accordion";
+    // accordion.innerHTML = `<h3>Schedule</h3>`;
+    // container.appendChild(accordion);
+    const tabContainer = document.createElement("div");
+    tabContainer.className = "columns is-mobile ";
+    container.appendChild(tabContainer);
 
-    const schedule = document.createElement("div");
-    schedule.className = "panel";
-    schedule.style.display = "none";
-    schedule.innerHTML =   `<p>Days: ${json.schedule.days} <br>
+    // const accordionContainer = document.createElement("div");
+    // tabContainer.appendChild(accordionContainer);
+
+    tabContainer.appendChild(rowContainer);
+    const schedule = document.createElement("button");
+    schedule.className = "accordion";
+    schedule.innerHTML = `<h3>Schedule</h3>`;
+    rowContainer.appendChild(schedule);
+
+    const scheduleDiv = document.createElement("div");
+    scheduleDiv.className = "panel";
+    scheduleDiv.style.display = "none";
+    scheduleDiv.innerHTML =   `<p>Days: ${json.schedule.days} <br>
                                 Time: ${json.schedule.time}
                             </p>`;
-    container.appendChild(schedule);
+    rowContainer.appendChild(scheduleDiv);
 
-    accordion.addEventListener("click", function openPanel() {
-        if(schedule.style.display === "none") {
-            schedule.style.display = "block";
+    schedule.addEventListener("click", function openPanel() {
+        if(scheduleDiv.style.display === "none") {
+            scheduleDiv.style.display = "block";
         } else {
-            schedule.style.display = "none";
+            scheduleDiv.style.display = "none";
         }
     });
+
+    const episodes = document.createElement("button");
+    episodes.className = "column accordion";
+    episodes.innerHTML = `<h3>Episodes</h3>`;
+    tabContainer.appendChild(episodes);
+
+    const episodesDiv = document.createElement("div");
+    episodesDiv.className = "panel episodesDiv";
+    episodesDiv.style.display = "none";
+    tabContainer.appendChild(episodesDiv);
+
+    episodes.addEventListener("click", function openSecondPanel() {
+        if(episodesDiv.style.display === "none") {
+            episodesDiv.style.display = "block";
+        } else {
+            episodesDiv.style.display = "none";
+        }
+    });
+
+    const seasons = document.createElement("button");
+    seasons.className = "column accordion";
+    seasons.innerHTML = `<h3>Seasons</h3>`;
+    tabContainer.appendChild(seasons);
+
+    const seasonsDiv = document.createElement("div");
+    seasonsDiv.className = "panel seasonsDiv";
+    seasonsDiv.style.display = "none";
+    tabContainer.appendChild(seasonsDiv);
+
+    seasons.addEventListener("click", function openThirdPanel() {
+        if(seasonsDiv.style.display === "none") {
+            seasonsDiv.style.display = "block";
+        } else {
+            seasonsDiv.style.display = "none";
+        }
+    });
+
+    
+}
+
+function handleEpisodes(json) {
+    console.dir(json);
+    const result = json;
+    const episodesDiv = document.querySelector(".episodesDiv");
+
+    let html = "";
+
+    result.forEach(function(episode) {
+        let episodeDetails = `<div class="column">
+                                <a href="">
+                                    <div style="background-image: url("https://acadianakarate.com/wp-content/uploads/2017/04/default-image.jpg");">
+                                        <h3>Episode ${episode.number}</h3>
+                                    </div>
+                                </a>
+                            </div>`;
+        html += episodeDetails;
+    });
+
+    episodesDiv.innerHTML = html;
+}
+
+function handleSeasons(json) {
+    console.dir(json);
+    const result = json;
+    const seasonsDiv = document.querySelector(".seasonsDiv");
+
+    let html = "";
+
+    result.forEach(function(season) {
+        let seasonDetails = `<div class="column">
+                                <a href="">
+                                    <div style="background-image: url("https://acadianakarate.com/wp-content/uploads/2017/04/default-image.jpg");">
+                                        <h3>Season ${season.number}</h3>
+                                    </div>
+                                </a>
+                            </div>`;
+        html += seasonDetails;
+    });
+
+    seasonsDiv.innerHTML = html;
+}
+
+function handleCast(json) {
+    console.dir(json);
+    const result = json;
 }
 
     /*
