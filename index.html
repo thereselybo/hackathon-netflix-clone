@@ -11,8 +11,8 @@
     <header>
         <nav role="navigation">
             <ul class="col_container">
-                <li class="col">
-                    <span class="logo"></span><a href="https://fontmeme.com/netflix-font/"><img src="https://fontmeme.com/permalink/200215/965e4a7f1d794b74e7fd3ec00d7a37d9.png" alt="netflix-font" border="0"></a></span>
+                <li class="col_wide">
+                    <span class="logo"></span><a href="index.html"><img src="https://fontmeme.com/permalink/200215/965e4a7f1d794b74e7fd3ec00d7a37d9.png" alt="netflix-font" border="0"></a></span>
                 </li>
                 <li class="col link">
                     <a href="index.html">Home</a>
@@ -20,18 +20,18 @@
                 <li class="col link">
                     <a href="contact.html">Contact</a>
                 </li>
-                <li class="col">
-                    <input class="search-bar" type="text" placeholder="Search for show..">
-                </li>
                 <!-- Search button next -->
-                <li class="col">
-
+                <li>
+                    <form class="col_container">
+                        <input id="search_bar" class="search_col" type="text" placeholder="Search for show..">
+                        <button id="search_btn" class="search_col" type="submit"><i class="fa fa-search"></i></button>
+                    </form>
                 </li> 
             </ul>
         </nav>
     </header>
     <main>
-        <section class="show-container results col_container">
+        <section class="show-container results col_container content">
             
         </section>
 
